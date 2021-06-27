@@ -5,26 +5,26 @@ from __future__ import print_function
 from hashlib import new
 from tkinter.constants import COMMAND
 from typing import ValuesView
-import PySimpleGUI as sg #GUI library
-import subprocess as sub #backup os shell library
-import os, sys #main shell library, returns 1 or 0 as exit code
+import PySimpleGUI as sg 
+import subprocess as sub 
+import os, sys 
 import time, serial
 from pandas.core.indexes.base import Index
-from colorama.ansi import Cursor #USB-COM port and time library
+from colorama.ansi import Cursor 
 import serial.tools.list_ports
 from serial.serialwin32 import Serial
 from serial.tools.list_ports_windows import comports
 from PySimpleGUI.PySimpleGUI import Titlebar, popup_auto_close  
-from time import sleep #to enable delay
-from threading import Thread # to auto refresh after an update
-import requests, json #to enable http request to server
-import logging  #file logging for debugging
-import colorama # use of colors to highlight alerts/text
+from time import sleep
+from threading import Thread 
+import requests, json 
+import logging  
+import colorama 
 from colorama import Fore
-from serial.tools.list_ports_windows import comports #foreground colors
-from termcolor import colored,cprint #colors in terminal
+from serial.tools.list_ports_windows import comports 
+from termcolor import colored,cprint 
 import platform
-import pandas as pd #to read/manipulate the excel file
+import pandas as pd 
 
 #print = sg.Print
 
@@ -36,8 +36,11 @@ a=os.system #assigning os library to a variable
 #GUI Theme color
 sg.theme('DarkGray') 
 
-#Excel file in localhost,to refer valid empID during data input, may use public-cloud hosting as replacement 
-data =pd.read_excel(r'C:\Users\User\Documents\Py\NCproject\Employee_List.xlsx', index_col=False)
+#public-cloud hosting as replacement so that anyone can access it(as long as they have the link)
+# https://drive.google.com/file/d/1hECZ6nOZ_UB1h-hNggidPCJMWgqiwqsf/view?usp=sharing
+
+#excel file in localhost to lookup valid empID during data input, or XAMPP localhost DB
+data =pd.read_excel(r'C:\Users\User\Documents\Py\NCproject\Employee_List.xlsx',)
 df=pd.DataFrame(data,columns=['Emp','Name','Department']) #select all emp,name and dept
 
 try:
@@ -48,6 +51,7 @@ try:
 except:
     print("[!]Unable to connect to serial COM/ttyUSB port")
     exit()
+
 #serverURL= localhost XAMPP phpmyadmin/MariaDB which is easier for testing
 
 #list the available COM ports in GUI
@@ -144,7 +148,7 @@ while True:
         empRFID = values ['-RFID-'] #TODO, input validation for number of characters
         empTemp = values ['-Temp-']
         newdf = df[(df.Emp == empRFID)]
-        print(newdf.to_string(index=False))
+        print(newdf.to_string(index=False,header=False))
         print('\nYour Temperature is: %s'%empTemp)
         
         if empRFID=="":
