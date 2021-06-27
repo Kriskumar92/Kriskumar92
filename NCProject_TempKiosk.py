@@ -163,6 +163,7 @@ while True:
 
 window.close()
 
+#TODO
 #pop-up single line input or just layout text, get RFID and enable_events=True with close=True and char more than 10 check
 #call scanner and grab the temp measurement, pop-up custom msg box to prompt. grab temp and update pop.up box or use multiline element to display
 #analyse temp and pop up decision 
